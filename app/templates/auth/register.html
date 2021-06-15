@@ -1,26 +1,18 @@
-{% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block content %}
 <div class="container">
-    <div class="jumbotron" style="background-color: rgba(29,25, 35, 0.6); color: #fff;" style="margin-top: 200px;">
-        <div class="row" style="margin-top: 50px;">
-            <div class="col-md-2"> </div>
-            <div class="col-md-8">
+<div class="row">
+<div class="col-md-2"> </div>
+<div class="col-md-8 card mt-3 p-5">
+    <h3 class="mt-3 pb-3 text-center">Registration</h3>
+    <hr>
+{{wtf.quick_form(registration_form)}}
 
-                {{wtf.quick_form(registration_form)}}
-
-            </div>
-            <div class=" col-md-2 "></div>
-        </div>
-    </div>
 </div>
-<style>
-    body {
-        background-image: url('https://www.hdwallback.net/wp-content/uploads/2015/06/desktop-backgrounds-quotes-tumblr.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        width: 100%;
-        height: 100vh;
-    }
-</style>
-
+<div class="col-md-2"></div>
+</div>
+</div>
 
 {% endblock%}

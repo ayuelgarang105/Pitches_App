@@ -1,60 +1,62 @@
 
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%}
+{% import 'macros.html' as macro %}
 
+{% block content %}
 <div class="container">
-    <div class="jumbotron">
-        <div class="row">
-            <!-- displaying  Username-->
-            <h1 class="text-center"> {{user.username| capitalize}} </h1>
-            <hr>
-            <!--Display profile photo-->
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    {% if user.profile_pic_path %}
-                    <img class="" src="{{url_for('static', filename=user.profile_pic_path)}}" alt="profile" class="img-circle img-responsive"> {%else%}
-                    <p>No profile picture</p>
-                    {% endif %} {% if user == current_user %}
-                    <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
-                        <input type="file" name="photo" class="form-control" required>
-                        <input type="submit">
-                    </form>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-4" style="margin-top: 200px;">
-                <p> <b>Name:</b> {{user.firstname}} {{user.lastname}} </p>
-                <p><b> No of piches:</b> {{pitches}}</p>
-                <p><b> Date joined: </b>{{date}}</p>
-            </div>
+  <h3 class="text-center mt-3">My Profile</h3>
+<hr>
+<div class="row">
+<!-- displaying  Username-->
+  <div class="col-4">
 
-            <div class="col-md-4"  style="margin-top: 200px;">
-                <h3>Add Your Bio </h3>
 
-                <!--Displaying user bio-->
-                {% if user.bio %}
-                <p> {{user.bio}}</p>
-                {%else%}
-                <p> {{user.username| capitalize}} has no bio </p>
-                {% endif %} {% if user == current_user %}
-                <a href="{{url_for('main.update_profile',uname=user.username)}}"><button type="button"
-                    class="btn btn-info">Edit profile</button></a> {% endif %}
-            </div>
-        </div>
-    </div>
+    {% if user.profile_pic_path %}
+
+  <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+
+  {%else%}
+  <p>No profile picture</p>
+
+  {% endif %}
+
 </div>
-<style>
-    body {
-        background-image: url('https://www.hdwallback.net/wp-content/uploads/2015/06/desktop-backgrounds-quotes-tumblr.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        width: 100%;
-        height: 100vh;
-    }
-    
-    .jumbotron {
-        background-color: rgba(29, 25, 35, 0.6);
-        color: #fff;
-    }
-</style>
 
+<div class="col-8">
+ <!--Displaying user bio-->
+  <div class="mr-5">
+    <span class="row">
+      <h3 class="h3"> Username : </h3><p class="h3">{{user.username| capitalize}} </p>
+    </span>
+    {% if user.bio %}
+    <p class="h3"> Bio : {{user.bio}}</p>
+  {%else%}
+    <p> {{user.username| capitalize}} has no bio </p>
+  {% endif %}
+
+  </div>
+  {% if user == current_user %}
+  <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data" class="pt-5">
+    <div class="form-group">
+      <input type="file"  name="photo" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-info" type="submit">Submit</button>
+    </div>
+  </form>
+    {% endif %}
+
+    {% if user == current_user %}
+<a href="{{url_for('main.update_profile',uname=user.username)}}" class="btn btn-default btn-center -center">
+  Edit Profile</a>
+{% endif %}
+
+</div>
+</div>
+
+  <h3 class="text-uppercase text-center"> My Pitches</h3>
+  <hr>
+ {{macro.displayPitches(pitches)}}
+</div>
 {% endblock %}
+  </div>

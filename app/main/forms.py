@@ -1,19 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import Required,Email
-# from ..models import User
+from wtforms import StringField,PasswordField,SubmitField,BooleanField,TextAreaField,SelectField
+from wtforms.validators import Required,Email,EqualTo
+from wtforms import ValidationError
+from ..models import User
 
-class UpdateProfile(FlaskForm):
-    bio = TextAreaField('Tell us about you.',validators = [Required()])
+class updateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about yourself',validators = [Required()])
     submit = SubmitField('Submit')
-
-class CommentForm(FlaskForm):
-    text = TextAreaField('Share your comment:',validators=[Required()])
-    submit = SubmitField('Submit')
-
 
 class PitchForm(FlaskForm):
-    title = StringField('Pitch title',validators=[Required()])
-    text = TextAreaField('Text',validators=[Required()])
-    category = SelectField('Type',choices=[('interview','ENTERTAINMENT pitch'),('product','MOTIVATIONAL pitch'),('promotion','LOVE pitch')],validators=[Required()])
+    pitch_title = StringField('Pitch title',validators=[Required()])
+    pitch_category = SelectField('Pitch Category', choices = [('Select category','Select category'),('interview', 'Interview'), ('product', 'Product'),('promotion','Promotion'),('pickup','Pickup Lines')], validators=[Required()])
+    pitch_comment = TextAreaField('Your Pitch')
+    submit = SubmitField('Submit Pitch')
+
+class CommentForm(FlaskForm):
+    text = TextAreaField('Write a comment:',validators=[Required()])
     submit = SubmitField('Submit')
